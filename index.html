@@ -1,10 +1,44 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <link rel="icon" type="image/png" href="ai.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XFeeBot / AI & Workspace Automation Expert</title>
+
+    <!-- PWA & Android Icon Configuration -->
+    <link rel="icon" type="image/png" href="ai.png">
+    <link rel="apple-touch-icon" href="ai.png">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="XFeeBot Pro">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Web App Manifest (Injected via Data URI) -->
+    <link rel="manifest" href='data:application/manifest+json,{
+      "name": "XFeeBot Pro",
+      "short_name": "XFeeBot",
+      "description": "AI & Workspace Automation Expert",
+      "start_url": "./",
+      "display": "standalone",
+      "background_color": "#000000",
+      "theme_color": "#000000",
+      "icons": [
+        {
+          "src": "ai.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any maskable"
+        },
+        {
+          "src": "ai.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any maskable"
+        }
+      ]
+    }'>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js -->
@@ -72,7 +106,7 @@
                 <button @click="mobileMenuOpen = false" class="md:hidden text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
 
-            <!-- Navigation (Tanpa Menu Settings API Key) -->
+            <!-- Navigation -->
             <nav class="flex-1 px-4 py-6 space-y-3">
                 <a href="#" @click.prevent="currentTab = 'home'; mobileMenuOpen = false" :class="currentTab === 'home' ? 'bg-cyber-cyan/10 border-cyber-cyan text-cyber-cyan shadow-neon-cyan' : 'border-transparent text-slate-400 hover:bg-cyber-black hover:text-white'" class="flex items-center px-4 py-3.5 rounded-xl border transition font-cyber text-xs tracking-wider">
                     <i class="fa-solid fa-terminal w-6"></i> TENTANG XFEEBOT
@@ -81,7 +115,7 @@
                     <i class="fa-solid fa-calculator w-6"></i> SIMULATOR BISNIS UMKM
                 </a>
                 <a href="https://xfeebot.streamlit.app/" target="_blank" class="flex items-center px-4 py-3.5 rounded-xl border border-cyber-purple/40 text-cyber-purple hover:bg-cyber-purple/10 shadow-neon-purple transition font-cyber text-xs tracking-wider">
-                    <i class="fa-solid fa-right-to-bracket w-6"></i> PORTA LOGIN
+                    <i class="fa-solid fa-right-to-bracket w-6"></i> PORTAL LOGIN
                 </a>
             </nav>
 
@@ -112,52 +146,52 @@
 
             <main class="p-4 md:p-8 max-w-6xl mx-auto w-full space-y-8 bg-cyber-black">
 
-        <!-- 1. TENTANG XFEEBOT TAB (BERANDA) -->
-                    <div x-show="currentTab === 'home'" class="space-y-8">
-                        <div class="relative bg-gradient-to-r from-cyber-panel via-cyber-black to-cyber-panel p-6 md:p-12 rounded-3xl border border-cyber-cyan/40 shadow-neon-cyan overflow-hidden">
-                            <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-cyber-cyan font-cyber font-black pointer-events-none">XF</div>
-                            <div class="relative z-10 max-w-3xl space-y-5">
-                                <span class="px-3.5 py-1.5 rounded-full bg-cyber-pink/20 text-cyber-pink text-xs font-cyber tracking-widest border border-cyber-pink/40">SPECIALIST GOOGLE APPS & WEB APP DEVELOPER</span>
-                                <h2 class="font-cyber text-2xl md:text-5xl font-black text-white tracking-wider leading-tight">HALO, SAYA <span class="text-cyber-cyan">XFEEBOT</span></h2>
-                                <p class="text-slate-300 text-xs md:text-sm font-mono leading-relaxed">
-                                    Saya adalah asisten pengembang ahli yang berspesialisasi dalam membangun otomatisasi sistem Google Workspace tingkat lanjut dan aplikasi web interaktif berstandar *Enterprise*.
-                                </p>
-                                <div class="pt-4 flex flex-wrap gap-4">
-                                    <button @click="currentTab = 'workspace'" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-black px-6 md:px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-cyan transition flex items-center">
-                                        <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Lihat AI Preview
-                                    </button>
-                                    <a href="https://xfeebot.streamlit.app/" target="_blank" class="bg-cyber-purple hover:bg-opacity-80 text-white font-cyber font-black px-6 md:px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-purple transition flex items-center">
-                                        <i class="fa-solid fa-right-to-bracket mr-2"></i> Portal Login
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-        
-                        <!-- Core Expertise Grid -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-cyan transition">
-                                <div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan flex items-center justify-center text-xl shadow-neon-cyan">
-                                    <i class="fa-solid fa-file-excel"></i>
-                                </div>
-                                <h3 class="font-cyber font-bold text-white text-base">Google Workspace Automation</h3>
-                                <p class="text-xs text-slate-400 font-mono leading-relaxed">Otomatisasi penuh untuk Google Sheets, Docs, Gmail, Drive, dan Forms.</p>
-                            </div>
-                            <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-pink transition">
-                                <div class="w-12 h-12 rounded-xl bg-cyber-pink/10 border border-cyber-pink/30 text-cyber-pink flex items-center justify-center text-xl shadow-neon-pink">
-                                    <i class="fa-solid fa-code"></i>
-                                </div>
-                                <h3 class="font-cyber font-bold text-white text-base">Advanced Web App Developer</h3>
-                                <p class="text-xs text-slate-400 font-mono leading-relaxed">Membangun Web App interaktif berbasis Tailwind CSS dan Alpine.js.</p>
-                            </div>
-                            <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-purple transition">
-                                <div class="w-12 h-12 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30 text-cyber-purple flex items-center justify-center text-xl shadow-neon-purple">
-                                    <i class="fa-solid fa-brain"></i>
-                                </div>
-                                <h3 class="font-cyber font-bold text-white text-base">AI Model Integration</h3>
-                                <p class="text-xs text-slate-400 font-mono leading-relaxed">Integrasi mulus Google Gemini AI dan OpenAI API ke sistem Anda.</p>
+                <!-- 1. TENTANG XFEEBOT TAB (BERANDA) -->
+                <div x-show="currentTab === 'home'" class="space-y-8">
+                    <div class="relative bg-gradient-to-r from-cyber-panel via-cyber-black to-cyber-panel p-6 md:p-12 rounded-3xl border border-cyber-cyan/40 shadow-neon-cyan overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-cyber-cyan font-cyber font-black pointer-events-none">XF</div>
+                        <div class="relative z-10 max-w-3xl space-y-5">
+                            <span class="px-3.5 py-1.5 rounded-full bg-cyber-pink/20 text-cyber-pink text-xs font-cyber tracking-widest border border-cyber-pink/40">SPECIALIST GOOGLE APPS & WEB APP DEVELOPER</span>
+                            <h2 class="font-cyber text-2xl md:text-5xl font-black text-white tracking-wider leading-tight">HALO, SAYA <span class="text-cyber-cyan">XFEEBOT</span></h2>
+                            <p class="text-slate-300 text-xs md:text-sm font-mono leading-relaxed">
+                                Saya adalah asisten pengembang ahli yang berspesialisasi dalam membangun otomatisasi sistem Google Workspace tingkat lanjut dan aplikasi web interaktif berstandar *Enterprise*.
+                            </p>
+                            <div class="pt-4 flex flex-wrap gap-4">
+                                <button @click="currentTab = 'workspace'" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-black px-6 md:px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-cyan transition flex items-center">
+                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Lihat AI Preview
+                                </button>
+                                <a href="https://xfeebot.streamlit.app/" target="_blank" class="bg-cyber-purple hover:bg-opacity-80 text-white font-cyber font-black px-6 md:px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-purple transition flex items-center">
+                                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Portal Login
+                                </a>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Core Expertise Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-cyan transition">
+                            <div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan flex items-center justify-center text-xl shadow-neon-cyan">
+                                <i class="fa-solid fa-file-excel"></i>
+                            </div>
+                            <h3 class="font-cyber font-bold text-white text-base">Google Workspace Automation</h3>
+                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Otomatisasi penuh untuk Google Sheets, Docs, Gmail, Drive, dan Forms.</p>
+                        </div>
+                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-pink transition">
+                            <div class="w-12 h-12 rounded-xl bg-cyber-pink/10 border border-cyber-pink/30 text-cyber-pink flex items-center justify-center text-xl shadow-neon-pink">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h3 class="font-cyber font-bold text-white text-base">Advanced Web App Developer</h3>
+                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Membangun Web App interaktif berbasis Tailwind CSS dan Alpine.js.</p>
+                        </div>
+                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-purple transition">
+                            <div class="w-12 h-12 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30 text-cyber-purple flex items-center justify-center text-xl shadow-neon-purple">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h3 class="font-cyber font-bold text-white text-base">AI Model Integration</h3>
+                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Integrasi mulus Google Gemini AI dan OpenAI API ke sistem Anda.</p>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- 2. AI SOLUTION PREVIEW TAB (WORKSPACE) -->
                 <div x-show="currentTab === 'workspace'" class="space-y-6">
@@ -252,8 +286,22 @@
         </div>
     </div>
 
-    <!-- Script Logika Frontend -->
+    <!-- Script Logika Frontend & Service Worker PWA -->
     <script>
+        // Automatic Service Worker Registration for PWA Installation
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                const swCode = `
+                    self.addEventListener('install', (e) => self.skipWaiting());
+                    self.addEventListener('activate', (e) => self.clients.claim());
+                    self.addEventListener('fetch', (e) => e.respondWith(fetch(e.request)));
+                `;
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+                navigator.serviceWorker.register(swUrl).catch(() => {});
+            });
+        }
+
         function xfeeBotApp() {
             return {
                 currentTab: 'home',
@@ -290,7 +338,7 @@
                         this.isLoading = false;
                         if (this.activeModule === 'finance') {
                             let monthlyOmset = this.sim.qty * this.sim.price * 30;
-                            let estProfit = monthlyOmset * 0.4; // Estimasi 40% bersih
+                            let estProfit = monthlyOmset * 0.4;
                             let formattedOmset = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(monthlyOmset);
                             let formattedProfit = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(estProfit);
 
