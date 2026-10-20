@@ -3,297 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XFeeBot // AI & Workspace Automation Expert</title>
+    <title>XFeeBot - Dashboard Keuangan</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Google Fonts: Orbitron & Share Tech Mono -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        cyber: ['Orbitron', 'sans-serif'],
-                        mono: ['Share Tech Mono', 'monospace'],
-                    },
                     colors: {
-                        cyber: {
-                            black: '#000000',
-                            panel: '#08080c',
-                            border: '#1a1b2f',
-                            cyan: '#00f0ff',
-                            pink: '#ff007f',
-                            purple: '#9d00ff'
-                        }
-                    },
-                    boxShadow: {
-                        'neon-cyan': '0 0 20px rgba(0, 240, 255, 0.4)',
-                        'neon-pink': '0 0 20px rgba(255, 0, 127, 0.4)',
-                        'neon-purple': '0 0 20px rgba(157, 0, 255, 0.4)',
+                        brand: { 50: '#eef2ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' }
                     }
                 }
             }
         }
     </script>
-    <style>
-        body {
-            background-color: #000000;
-            color: #c7d2fe;
-        }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #000000; }
-        ::-webkit-scrollbar-thumb { background: #1a1b2f; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
-    </style>
 </head>
-<body class="font-mono antialiased" x-data="xfeeBotApp()" x-init="initApp()">
+<body class="bg-slate-50 font-sans text-slate-800 antialiased" x-data="financeApp()" x-init="initApp()">
 
-    <div class="flex h-screen overflow-hidden bg-cyber-black">
+    <!-- App Container -->
+    <div class="flex h-screen overflow-hidden">
 
         <!-- Sidebar -->
         <aside class="hidden md:flex md:flex-shrink-0">
-            <div class="flex flex-col w-72 bg-cyber-panel border-r border-cyber-border">
-                <!-- Brand Header dengan Logo Kustom -->
-                <div class="flex items-center h-20 bg-cyber-black border-b border-cyber-border px-6 space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/50 flex items-center justify-center text-cyber-cyan shadow-neon-cyan overflow-hidden p-1">
-                        <!-- Ganti URL di bawah dengan link gambar logo Anda -->
-                        <img src="<i class="fa-solid fa-robot text-lg"></i>" alt="Logo XFeeBot" class="w-full h-full object-cover rounded-lg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <!-- Fallback ikon robot jika gambar gagal dimuat -->
-                        <div class="w-full h-full items-center justify-center hidden">
-                            <i class="fa-solid fa-robot text-lg"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 class="font-cyber font-black text-white text-sm tracking-wider">XFEEBOT</h2>
-                        <span class="text-[10px] text-cyber-pink font-cyber tracking-widest">ADVANCED AI & SCRIPT</span>
-                    </div>
+            <div class="flex flex-col w-64 bg-slate-900 text-slate-300">
+                <div class="flex items-center justify-center h-16 bg-slate-950 px-4">
+                    <i class="fa-solid fa-wallet text-brand-500 text-2xl mr-3"></i>
+                    <span class="text-lg font-bold text-white tracking-wider">XFee<span class="text-brand-500">Finance</span></span>
                 </div>
-
-                <!-- Navigation -->
-                <nav class="flex-1 px-4 py-6 space-y-3">
-                    <a href="#" @click.prevent="currentTab = 'home'" :class="currentTab === 'home' ? 'bg-cyber-cyan/10 border-cyber-cyan text-cyber-cyan shadow-neon-cyan' : 'border-transparent text-slate-400 hover:bg-cyber-black hover:text-white'" class="flex items-center px-4 py-3.5 rounded-xl border transition font-cyber text-xs tracking-wider">
-                        <i class="fa-solid fa-terminal w-6"></i> TENTANG XFEEBOT
+                <nav class="flex-1 px-4 py-6 space-y-2">
+                    <a href="#" @click.prevent="currentTab = 'dashboard'" :class="currentTab === 'dashboard' ? 'bg-brand-600 text-white' : 'hover:bg-slate-800'" class="flex items-center px-4 py-3 rounded-xl transition font-medium">
+                        <i class="fa-solid fa-chart-pie w-6"></i> Dashboard
                     </a>
-                    <a href="#" @click.prevent="currentTab = 'workspace'" :class="currentTab === 'workspace' ? 'bg-cyber-cyan/10 border-cyber-cyan text-cyber-cyan shadow-neon-cyan' : 'border-transparent text-slate-400 hover:bg-cyber-black hover:text-white'" class="flex items-center px-4 py-3.5 rounded-xl border transition font-cyber text-xs tracking-wider">
-                        <i class="fa-solid fa-wand-magic-sparkles w-6"></i> AI SOLUTION PREVIEW
-                    </a>
-                    <a href="#" @click.prevent="currentTab = 'settings'" :class="currentTab === 'settings' ? 'bg-cyber-pink/10 border-cyber-pink text-cyber-pink shadow-neon-pink' : 'border-transparent text-slate-400 hover:bg-cyber-black hover:text-white'" class="flex items-center px-4 py-3.5 rounded-xl border transition font-cyber text-xs tracking-wider">
-                        <i class="fa-solid fa-key w-6"></i> API GATEWAY
-                    </a>
-                    <!-- Tombol Login Eksternal -->
-                    <a href="https://xfeebot.streamlit.app/" target="_blank" class="flex items-center px-4 py-3.5 rounded-xl border border-cyber-purple/40 text-cyber-purple hover:bg-cyber-purple/10 shadow-neon-purple transition font-cyber text-xs tracking-wider">
-                        <i class="fa-solid fa-right-to-bracket w-6"></i> PORTAL LOGIN
+                    <a href="#" @click.prevent="currentTab = 'transactions'" :class="currentTab === 'transactions' ? 'bg-brand-600 text-white' : 'hover:bg-slate-800'" class="flex items-center px-4 py-3 rounded-xl transition font-medium">
+                        <i class="fa-solid fa-list-ul w-6"></i> Transaksi
                     </a>
                 </nav>
-
-                <!-- Sidebar Footer Status -->
-                <div class="p-4 border-t border-cyber-border bg-cyber-black/50 text-center">
-                    <div class="flex items-center justify-center space-x-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                        <span class="text-[10px] text-emerald-400 font-cyber tracking-widest">CORE STATUS: ACTIVE</span>
-                    </div>
-                </div>
             </div>
         </aside>
 
         <!-- Main Content Area -->
-        <div class="flex flex-col flex-1 overflow-y-auto bg-cyber-black">
+        <div class="flex flex-col flex-1 overflow-y-auto">
 
             <!-- Top Navbar -->
-            <header class="flex items-center justify-between h-20 bg-cyber-panel border-b border-cyber-border px-8">
-                <div class="flex items-center space-x-3">
-                    <h1 class="font-cyber font-bold text-lg text-white tracking-wider uppercase" x-text="pageTitle"></h1>
+            <header class="flex items-center justify-between h-16 bg-white border-b border-slate-200 px-6">
+                <div class="flex items-center">
+                    <h1 class="text-xl font-bold text-slate-800 capitalize" x-text="currentTab"></h1>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <a href="https://xfeebot.streamlit.app/" target="_blank" class="px-4 py-2 rounded-xl bg-cyber-purple/20 border border-cyber-purple text-cyber-purple text-xs font-cyber shadow-neon-purple hover:bg-cyber-purple hover:text-white transition flex items-center">
-                        <i class="fa-solid fa-right-to-bracket mr-2"></i> Login Streamlit
-                    </a>
+                <div class="flex items-center space-x-4">
+                    <button @click="openModal = true" class="bg-brand-600 hover:bg-brand-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-lg shadow-brand-500/30 transition flex items-center">
+                        <i class="fa-solid fa-plus mr-2"></i> Catat Transaksi
+                    </button>
                 </div>
             </header>
 
-            <main class="p-8 max-w-6xl mx-auto w-full space-y-8 bg-cyber-black">
+            <!-- Main Dynamic View (SPA) -->
+            <main class="p-6">
 
-                <!-- 1. TENTANG XFEEBOT TAB (BERANDA) -->
-                <div x-show="currentTab === 'home'" class="space-y-8">
-                    <!-- Hero Banner -->
-                    <div class="relative bg-gradient-to-r from-cyber-panel via-cyber-black to-cyber-panel p-8 md:p-12 rounded-3xl border border-cyber-cyan/40 shadow-neon-cyan overflow-hidden">
-                        <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-cyber-cyan font-cyber font-black pointer-events-none">XF</div>
-                        <div class="relative z-10 max-w-3xl space-y-5">
-                            <span class="px-3.5 py-1.5 rounded-full bg-cyber-pink/20 text-cyber-pink text-xs font-cyber tracking-widest border border-cyber-pink/40">SPECIALIST GOOGLE APPS SCRIPT & WEB APP</span>
-                            <h2 class="font-cyber text-3xl md:text-5xl font-black text-white tracking-wider leading-tight">HALO, SAYA <span class="text-cyber-cyan">XFEEBOT</span></h2>
-                            <p class="text-slate-300 text-sm font-mono leading-relaxed">
-                                Saya adalah asisten pengembang ahli yang berspesialisasi dalam membangun otomatisasi sistem Google Workspace tingkat lanjut dan aplikasi web interaktif berstandar *Enterprise*.
-                            </p>
-                            <div class="pt-4 flex flex-wrap gap-4">
-                                <button @click="currentTab = 'workspace'" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-black px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-cyan transition flex items-center">
-                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Lihat AI Solution Preview
-                                </button>
-                                <a href="https://xfeebot.streamlit.app/" target="_blank" class="bg-cyber-purple hover:bg-opacity-80 text-white font-cyber font-black px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-purple transition flex items-center">
-                                    <i class="fa-solid fa-right-to-bracket mr-2"></i> Login Portal Streamlit
-                                </a>
-                            </div>
-                        </div>
+                <!-- Loading State -->
+                <template x-if="isLoading">
+                    <div class="flex justify-center items-center h-64">
+                        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-600"></div>
                     </div>
+                </template>
 
-                    <!-- Core Expertise Grid -->
+                <!-- DASHBOARD TAB -->
+                <div x-show="!isLoading && currentTab === 'dashboard'" class="space-y-6">
+                    <!-- Metric Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-cyan transition">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan flex items-center justify-center text-xl shadow-neon-cyan">
-                                <i class="fa-solid fa-file-excel"></i>
-                            </div>
-                            <h3 class="font-cyber font-bold text-white text-base">Google Workspace Automation</h3>
-                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Otomatisasi penuh untuk Google Sheets, Docs, Gmail, Drive, dan Forms guna memangkas waktu kerja manual.</p>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Total Saldo</p>
+                            <h3 class="text-2xl font-bold text-slate-900 mt-2" x-text="formatRupiah(totalBalance)"></h3>
                         </div>
-                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-pink transition">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-pink/10 border border-cyber-pink/30 text-cyber-pink flex items-center justify-center text-xl shadow-neon-pink">
-                                <i class="fa-solid fa-code"></i>
-                            </div>
-                            <h3 class="font-cyber font-bold text-white text-base">Advanced Web App Developer</h3>
-                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Membangun Web App interaktif berbasis Tailwind CSS, Alpine.js, dan Single Page Application (SPA) yang estetik.</p>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Total Pemasukan</p>
+                            <h3 class="text-2xl font-bold text-emerald-600 mt-2" x-text="formatRupiah(totalIncome)"></h3>
                         </div>
-                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-purple transition">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30 text-cyber-purple flex items-center justify-center text-xl shadow-neon-purple">
-                                <i class="fa-solid fa-brain"></i>
-                            </div>
-                            <h3 class="font-cyber font-bold text-white text-base">AI Model Integration</h3>
-                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Integrasi mulus Google Gemini AI dan OpenAI API langsung ke dalam lembar kerja Google Sheets Anda.</p>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                            <p class="text-sm font-medium text-slate-500">Total Pengeluaran</p>
+                            <h3 class="text-2xl font-bold text-rose-600 mt-2" x-text="formatRupiah(totalExpense)"></h3>
                         </div>
                     </div>
-                </div>
 
-                <!-- 2. AI SOLUTION PREVIEW TAB (WORKSPACE) -->
-                <div x-show="currentTab === 'workspace'" class="space-y-6">
-                    <!-- Info Banner -->
-                    <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-cyan/30 shadow-neon-cyan space-y-2">
-                        <h3 class="font-cyber font-bold text-white text-base flex items-center"><i class="fa-solid fa-circle-info text-cyber-cyan mr-2"></i> Penjelasan & Simulasi Preview AI</h3>
-                        <p class="text-xs text-slate-300 font-mono leading-relaxed">
-                            Pilih modul otomatisasi di bawah untuk melihat penjelasan sistem serta melihat langsung pratinjau hasil olahan AI tanpa menampilkan baris skrip pemrograman.
-                        </p>
-                    </div>
-
-                    <!-- Mode Selector -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button @click="selectModule('summarize')" :class="activeModule === 'summarize' ? 'border-cyber-cyan bg-cyber-cyan/10 shadow-neon-cyan' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-cyan/20 text-cyber-cyan flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-file-contract"></i></div>
-                            <div>
-                                <h4 class="font-cyber font-bold text-white text-sm">RANGKUM DOKUMEN OTOMATIS</h4>
-                                <p class="text-xs text-slate-400 font-mono mt-1">Ekstrak intisari laporan panjang dari Google Docs & Sheets.</p>
-                            </div>
-                        </button>
-                        <button @click="selectModule('chat')" :class="activeModule === 'chat' ? 'border-cyber-pink bg-cyber-pink/10 shadow-neon-pink' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-pink/20 text-cyber-pink flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-comments"></i></div>
-                            <div>
-                                <h4 class="font-cyber font-bold text-white text-sm">ASISTEN ANALISIS DATA SHEET</h4>
-                                <p class="text-xs text-slate-400 font-mono mt-1">Tanya jawab cerdas berbasis data inventaris atau keuangan.</p>
-                            </div>
-                        </button>
-                    </div>
-
-                    <!-- Interactive Preview Card -->
-                    <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-4">
-                        <div class="flex justify-between items-center border-b border-cyber-border pb-3">
-                            <h3 class="font-cyber text-xs uppercase tracking-widest text-cyber-cyan flex items-center">
-                                <i class="fa-solid fa-eye mr-2"></i> <span x-text="previewTitle"></span>
-                            </h3>
-                            <button @click="triggerPreview" :disabled="isLoading" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition flex items-center shadow-neon-cyan disabled:opacity-50">
-                                <template x-if="isLoading">
-                                    <i class="fa-solid fa-circle-notch animate-spin mr-1"></i>
-                                </template>
-                                <template x-if="!isLoading">
-                                    <i class="fa-solid fa-play mr-1"></i>
-                                </template>
-                                Jalankan Simulasi
-                            </button>
+                    <!-- Charts Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-4">Grafik Arus Kas</h3>
+                            <canvas id="cashFlowChart" height="150"></canvas>
                         </div>
-
-                        <!-- Penjelasan Modul -->
-                        <div class="text-xs text-slate-400 font-mono bg-cyber-black p-4 rounded-xl border border-cyber-border" x-text="moduleDescription"></div>
-
-                        <!-- Hasil Preview / Simulasi -->
-                        <div class="space-y-2">
-                            <label class="block font-cyber text-[10px] uppercase tracking-widest text-cyber-pink">> Hasil Preview Output AI:</label>
-                            <div class="p-4 bg-cyber-black border border-cyber-purple/50 rounded-xl text-sm text-slate-200 whitespace-pre-line leading-relaxed font-mono min-h-[120px] shadow-neon-purple flex items-center justify-center" x-text="previewResult"></div>
+                        <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-4">Pengeluaran berdasarkan Kategori</h3>
+                            <canvas id="categoryChart" height="150"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. SETTINGS TAB (API GATEWAY) -->
-                <div x-show="currentTab === 'settings'" class="bg-cyber-panel p-8 rounded-2xl border border-cyber-border shadow-lg space-y-6 max-w-xl">
-                    <h3 class="font-cyber font-bold text-white tracking-wider">// API_KEY_CONFIGURATION</h3>
-                    <p class="text-xs text-slate-400 font-mono">Dapatkan token akses gratis dari <a href="https://aistudio.google.com/" target="_blank" class="text-cyber-cyan underline">Google AI Studio</a> dan masukkan ke sistem.</p>
-                    <div class="space-y-2">
-                        <label class="block font-cyber text-xs uppercase tracking-widest text-cyber-pink">Gemini API Key</label>
-                        <input type="password" x-model="apiKeyInput" placeholder="AIzaSy..." class="w-full px-4 py-3 bg-cyber-black border border-cyber-border rounded-xl focus:outline-none focus:border-cyber-pink text-sm text-white font-mono transition">
+                <!-- TRANSACTIONS TAB -->
+                <div x-show="!isLoading && currentTab === 'transactions'" class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                        <h3 class="font-bold text-slate-800">Riwayat Transaksi</h3>
+                        <input type="text" x-model="search" placeholder="Cari transaksi..." class="px-4 py-2 text-sm border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
-                    <button @click="saveKey" class="bg-cyber-pink hover:bg-opacity-80 text-white font-cyber font-bold px-6 py-3 rounded-xl text-xs uppercase tracking-wider shadow-neon-pink transition">Simpan ke Neural Core</button>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 text-slate-400 text-xs uppercase tracking-wider">
+                                    <th class="p-4 font-semibold">Tanggal</th>
+                                    <th class="p-4 font-semibold">Keterangan</th>
+                                    <th class="p-4 font-semibold">Kategori</th>
+                                    <th class="p-4 font-semibold">Tipe</th>
+                                    <th class="p-4 font-semibold text-right">Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 text-sm">
+                                <template x-for="tx in filteredTransactions" :key="tx.id">
+                                    <tr class="hover:bg-slate-50/50">
+                                        <td class="p-4 text-slate-600" x-text="tx.date"></td>
+                                        <td class="p-4 font-medium text-slate-800" x-text="tx.description"></td>
+                                        <td class="p-4"><span class="px-2.5 py-1 text-xs rounded-full bg-slate-100 text-slate-600" x-text="tx.category"></span></td>
+                                        <td class="p-4">
+                                            <span class="px-2.5 py-1 text-xs rounded-full font-medium" :class="tx.type === 'Pemasukan' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'" x-text="tx.type"></span>
+                                        </td>
+                                        <td class="p-4 text-right font-semibold" :class="tx.type === 'Pemasukan' ? 'text-emerald-600' : 'text-slate-800'" x-text="formatRupiah(tx.amount)"></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
             </main>
         </div>
     </div>
 
+    <!-- MODAL TAMBAH TRANSAKSI -->
+    <div x-show="openModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm" x-cloak>
+        <div @click.away="openModal = false" class="bg-white w-full max-w-lg p-6 rounded-2xl shadow-xl space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-lg text-slate-800">Tambah Transaksi Baru</h3>
+                <button @click="openModal = false" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form @submit.prevent="submitTransaction" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Tipe</label>
+                    <select x-model="form.type" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-brand-500">
+                        <option value="Pemasukan">Pemasukan</option>
+                        <option value="Pengeluaran">Pengeluaran</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Keterangan</label>
+                    <input type="text" x-model="form.description" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-brand-500" placeholder="Contoh: Makan Siang">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Kategori</label>
+                        <input type="text" x-model="form.category" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-brand-500" placeholder="Makanan/Gaji">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Jumlah (Rp)</label>
+                        <input type="number" x-model="form.amount" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-brand-500" placeholder="50000">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-500 mb-1">Tanggal</label>
+                    <input type="date" x-model="form.date" required class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div class="flex justify-end space-x-3 pt-4 border-t">
+                    <button type="button" @click="openModal = false" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl">Batal</button>
+                    <button type="submit" class="px-5 py-2 text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 rounded-xl shadow-lg shadow-brand-500/30">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Script Logika Frontend -->
     <script>
-        function xfeeBotApp() {
+        function financeApp() {
             return {
-                currentTab: 'home',
-                isLoading: false,
-                apiKeyInput: '',
-                activeModule: 'summarize',
-                previewResult: 'Klik tombol "Jalankan Simulasi" di atas untuk melihat preview hasil kerja AI secara instan.',
-
-                get pageTitle() {
-                    if (this.currentTab === 'home') return '// XFEEBOT_PROFILE';
-                    if (this.currentTab === 'workspace') return '// AI_SOLUTION_PREVIEW';
-                    return '// SYSTEM_CONFIG';
-                },
-
-                get previewTitle() {
-                    return this.activeModule === 'summarize' ? 'Simulasi Ringkasan Dokumen' : 'Simulasi Asisten Analisis Data';
-                },
-
-                get moduleDescription() {
-                    if (this.activeModule === 'summarize') {
-                        return 'PENJELASAN: Fitur ini secara otomatis memindai teks laporan panjang dari Google Docs atau baris sel Google Sheets, lalu memerintahkan Gemini AI untuk menyusun poin-poin intisari penting secara profesional dan terstruktur.';
-                    } else {
-                        return 'PENJELASAN: Fitur ini menghubungkan database tabel Google Sheets dengan kecerdasan buatan, memungkinkan Anda bertanya langsung mengenai kondisi inventaris, grafik keuangan, atau rekap data tanpa rumus manual yang rumit.';
-                    }
+                currentTab: 'dashboard',
+                isLoading: true,
+                openModal: false,
+                transactions: [],
+                search: '',
+                form: {
+                    type: 'Pengeluaran',
+                    description: '',
+                    category: '',
+                    amount: '',
+                    date: new Date().toISOString().split('T')[0]
                 },
 
                 initApp() {
-                    // Inisialisasi awal
-                },
-
-                selectModule(mode) {
-                    this.activeModule = mode;
-                    this.previewResult = 'Klik tombol "Jalankan Simulasi" untuk melihat preview hasil dari modul ' + (mode === 'summarize' ? 'Ringkasan Dokumen' : 'Analisis Data') + '.';
-                },
-
-                triggerPreview() {
-                    this.isLoading = true;
-                    this.previewResult = 'Menghubungkan ke Neural Core & memproses simulasi...';
-
-                    setTimeout(() => {
-                        this.isLoading = false;
-                        if (this.activeModule === 'summarize') {
-                            this.previewResult = "[PREVIEW HASIL // RINGKASAN DOKUMEN]\n\n• Poin 1: Efisiensi operasional sistem meningkat hingga 95%.\n• Poin 2: Seluruh rekap laporan harian otomatis tersinkronisasi ke Google Sheets.\n• Poin 3: Eliminasi tugas manual manusia melalui eksekusi skrip otomatis.";
-                        } else {
-                            this.previewResult = "[PREVIEW HASIL // ASISTEN ANALISIS DATA]\n\nAI Analysis: Berdasarkan data pada sheet, total pemasukan minggu ini stabil dengan pertumbuhan 18%. Pengeluaran tertinggi tercatat pada kategori operasional utilitas.";
-                        }
-                    }, 1000);
-                },
-
-                saveKey() {
-                    if (!this.apiKeyInput.trim()) {
-                        alert('API Key tidak valid!');
-                        return;
+                    // Cek ketersediaan google.script.run untuk mencegah error live preview
+                    if (typeof google !== 'undefined' && google.script && google.script.run) {
+                        google.script.run
+                            .withSuccessHandler(data => {
+                                this.transactions = data;
+                                this.isLoading = false;
+                                this.$nextTick(() => this.renderCharts());
+                            })
+                            .withFailureHandler(err => {
+                                console.error(err);
+                                this.loadDummy();
+                            })
+                            .getTransactions();
+                    } else {
+                        // Jika dibuka di luar Google Apps Script (Live Preview), pakai data dummy
+                        setTimeout(() => {
+                            this.loadDummy();
+                        }, 500);
                     }
-                    alert('Neural Key berhasil diamankan ke sistem!');
-                    this.apiKeyInput = '';
+                },
+
+                loadDummy() {
+                    this.transactions = [
+                        { id: 'TX-001', date: '2023-10-01', description: 'Gaji Bulanan', category: 'Gaji', type: 'Pemasukan', amount: 7500000 },
+                        { id: 'TX-002', date: '2023-10-03', description: 'Belanja Supermarket', category: 'Belanja', type: 'Pengeluaran', amount: 1200000 },
+                        { id: 'TX-003', date: '2023-10-05', description: 'Bayar Listrik', category: 'Utilitas', type: 'Pengeluaran', amount: 450000 },
+                        { id: 'TX-004', date: '2023-10-10', description: 'Freelance Website', category: 'Sampingan', type: 'Pemasukan', amount: 2000000 }
+                    ];
+                    this.isLoading = false;
+                    this.$nextTick(() => this.renderCharts());
+                },
+
+                submitTransaction() {
+                    if (typeof google !== 'undefined' && google.script && google.script.run) {
+                        google.script.run
+                            .withSuccessHandler(res => {
+                                alert(res.message);
+                                this.openModal = false;
+                                this.initApp();
+                            })
+                            .addTransaction(this.form);
+                    } else {
+                        // Simulasi sukses lokal untuk preview
+                        this.transactions.unshift({
+                            id: 'TX-' + Date.now(),
+                            ...this.form,
+                            amount: Number(this.form.amount)
+                        });
+                        this.openModal = false;
+                        alert('Transaksi berhasil disimpan (Mode Preview)!');
+                        this.renderCharts();
+                    }
+                },
+
+                get totalIncome() {
+                    return this.transactions.filter(t => t.type === 'Pemasukan').reduce((acc, t) => acc + Number(t.amount), 0);
+                },
+
+                get totalExpense() {
+                    return this.transactions.filter(t => t.type === 'Pengeluaran').reduce((acc, t) => acc + Number(t.amount), 0);
+                },
+
+                get totalBalance() {
+                    return this.totalIncome - this.totalExpense;
+                },
+
+                get filteredTransactions() {
+                    if (!this.search) return this.transactions;
+                    return this.transactions.filter(t => 
+                        t.description.toLowerCase().includes(this.search.toLowerCase()) ||
+                        t.category.toLowerCase().includes(this.search.toLowerCase())
+                    );
+                },
+
+                formatRupiah(number) {
+                    return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
+                },
+
+                renderCharts() {
+                    // Chart Arus Kas (Line)
+                    const ctxCash = document.getElementById('cashFlowChart');
+                    if(ctxCash) {
+                        new Chart(ctxCash, {
+                            type: 'line',
+                            data: {
+                                labels: this.transactions.map(t => t.date).reverse(),
+                                datasets: [{
+                                    label: 'Jumlah Transaksi',
+                                    data: this.transactions.map(t => t.type === 'Pemasukan' ? t.amount : -t.amount).reverse(),
+                                    borderColor: '#6366f1',
+                                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                                    fill: true,
+                                    tension: 0.3
+                                }]
+                            },
+                            options: { responsive: true, plugins: { legend: { display: false } } }
+                        });
+                    }
+
+                    // Chart Kategori (Doughnut)
+                    const ctxCat = document.getElementById('categoryChart');
+                    if(ctxCat) {
+                        const expenses = this.transactions.filter(t => t.type === 'Pengeluaran');
+                        const categories = [...new Set(expenses.map(t => t.category))];
+                        const amounts = categories.map(cat => expenses.filter(t => t.category === cat).reduce((sum, t) => sum + t.amount, 0));
+
+                        new Chart(ctxCat, {
+                            type: 'doughnut',
+                            data: {
+                                labels: categories,
+                                datasets: [{
+                                    data: amounts,
+                                    backgroundColor: ['#f43f5e', '#fbbf24', '#38bdf8', '#a855f7', '#34d399']
+                                }]
+                            },
+                            options: { responsive: true }
+                        });
+                    }
                 }
             }
         }
