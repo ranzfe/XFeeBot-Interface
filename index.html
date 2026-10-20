@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-   <link rel="icon" type="image/png" href="ai.png">
+    <link rel="icon" type="image/png" href="ai.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XFeeBot // AI & Workspace Automation Expert</title>
+    <!-- Favicon Ikon Robot Cyber -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 640 512%22><path fill=%22%2300f0ff%22 d=%22M32 0C14.3 0 0 14.3 0 32s14.3 32 32 32h24c13.3 0 24 10.7 24 24v192c0 53 43 96 96 96h192c53 0 96-43 96-96V88c0-13.3 10.7-24 24-24h24c17.7 0 32-14.3 32-32s-14.3-32-32-32H584 536 496 424.8c-15.6-35.3-51.4-60-92.8-60H308c-41.4 0-77.2 24.7-92.8 60H144 104 56 32zM224 256a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm192 32a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM128 416c-17.7 0-32 14.3-32 32s14.3 32 32 32h384c17.7 0 32-14.3 32-32s-14.3-32-32-32H128z%22/></svg>">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Alpine.js -->
@@ -41,10 +43,7 @@
         }
     </script>
     <style>
-        body {
-            background-color: #000000;
-            color: #c7d2fe;
-        }
+        body { background-color: #000000; color: #c7d2fe; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000000; }
         ::-webkit-scrollbar-thumb { background: #1a1b2f; border-radius: 3px; }
@@ -80,13 +79,11 @@
                     <a href="#" @click.prevent="currentTab = 'settings'" :class="currentTab === 'settings' ? 'bg-cyber-pink/10 border-cyber-pink text-cyber-pink shadow-neon-pink' : 'border-transparent text-slate-400 hover:bg-cyber-black hover:text-white'" class="flex items-center px-4 py-3.5 rounded-xl border transition font-cyber text-xs tracking-wider">
                         <i class="fa-solid fa-key w-6"></i> API GATEWAY
                     </a>
-                    <!-- Tombol Login Eksternal -->
                     <a href="https://xfeebot.streamlit.app/" target="_blank" class="flex items-center px-4 py-3.5 rounded-xl border border-cyber-purple/40 text-cyber-purple hover:bg-cyber-purple/10 shadow-neon-purple transition font-cyber text-xs tracking-wider">
                         <i class="fa-solid fa-right-to-bracket w-6"></i> PORTAL LOGIN
                     </a>
                 </nav>
 
-                <!-- Sidebar Footer Status -->
                 <div class="p-4 border-t border-cyber-border bg-cyber-black/50 text-center">
                     <div class="flex items-center justify-center space-x-2">
                         <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
@@ -113,20 +110,19 @@
 
             <main class="p-8 max-w-6xl mx-auto w-full space-y-8 bg-cyber-black">
 
-                <!-- 1. TENTANG XFEEBOT TAB (BERANDA) -->
+                <!-- 1. TENTANG XFEEBOT TAB -->
                 <div x-show="currentTab === 'home'" class="space-y-8">
-                    <!-- Hero Banner -->
                     <div class="relative bg-gradient-to-r from-cyber-panel via-cyber-black to-cyber-panel p-8 md:p-12 rounded-3xl border border-cyber-cyan/40 shadow-neon-cyan overflow-hidden">
                         <div class="absolute -right-6 -bottom-6 opacity-10 text-9xl text-cyber-cyan font-cyber font-black pointer-events-none">XF</div>
                         <div class="relative z-10 max-w-3xl space-y-5">
                             <span class="px-3.5 py-1.5 rounded-full bg-cyber-pink/20 text-cyber-pink text-xs font-cyber tracking-widest border border-cyber-pink/40">SPECIALIST GOOGLE APPS SCRIPT & WEB APP</span>
                             <h2 class="font-cyber text-3xl md:text-5xl font-black text-white tracking-wider leading-tight">HALO, SAYA <span class="text-cyber-cyan">XFEEBOT</span></h2>
                             <p class="text-slate-300 text-sm font-mono leading-relaxed">
-                                Saya adalah asisten pengembang ahli yang berspesialisasi dalam membangun otomatisasi sistem Google Workspace tingkat lanjut dan aplikasi web interaktif berstandar *Enterprise*.
+                                Asisten pengembang ahli yang berspesialisasi dalam membangun otomatisasi sistem Google Workspace tingkat lanjut dan aplikasi web interaktif berstandar *Enterprise*.
                             </p>
                             <div class="pt-4 flex flex-wrap gap-4">
                                 <button @click="currentTab = 'workspace'" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-black px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-cyan transition flex items-center">
-                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Lihat AI Solution Preview
+                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Coba AI Preview POS
                                 </button>
                                 <a href="https://xfeebot.streamlit.app/" target="_blank" class="bg-cyber-purple hover:bg-opacity-80 text-white font-cyber font-black px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-purple transition flex items-center">
                                     <i class="fa-solid fa-right-to-bracket mr-2"></i> Login Portal Streamlit
@@ -134,93 +130,104 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Core Expertise Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-cyan transition">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 text-cyber-cyan flex items-center justify-center text-xl shadow-neon-cyan">
-                                <i class="fa-solid fa-file-excel"></i>
-                            </div>
-                            <h3 class="font-cyber font-bold text-white text-base">Google Workspace Automation</h3>
-                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Otomatisasi penuh untuk Google Sheets, Docs, Gmail, Drive, dan Forms guna memangkas waktu kerja manual.</p>
-                        </div>
-                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-pink transition">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-pink/10 border border-cyber-pink/30 text-cyber-pink flex items-center justify-center text-xl shadow-neon-pink">
-                                <i class="fa-solid fa-code"></i>
-                            </div>
-                            <h3 class="font-cyber font-bold text-white text-base">Advanced Web App Developer</h3>
-                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Membangun Web App interaktif berbasis Tailwind CSS, Alpine.js, dan Single Page Application (SPA) yang estetik.</p>
-                        </div>
-                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-3 hover:border-cyber-purple transition">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-purple/10 border border-cyber-purple/30 text-cyber-purple flex items-center justify-center text-xl shadow-neon-purple">
-                                <i class="fa-solid fa-brain"></i>
-                            </div>
-                            <h3 class="font-cyber font-bold text-white text-base">AI Model Integration</h3>
-                            <p class="text-xs text-slate-400 font-mono leading-relaxed">Integrasi mulus Google Gemini AI dan OpenAI API langsung ke dalam lembar kerja Google Sheets Anda.</p>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- 2. AI SOLUTION PREVIEW TAB (WORKSPACE) -->
+                <!-- 2. AI SOLUTION PREVIEW TAB (POS DASHBOARD SIMULATOR) -->
                 <div x-show="currentTab === 'workspace'" class="space-y-6">
                     <!-- Info Banner -->
                     <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-cyan/30 shadow-neon-cyan space-y-2">
-                        <h3 class="font-cyber font-bold text-white text-base flex items-center"><i class="fa-solid fa-circle-info text-cyber-cyan mr-2"></i> Penjelasan & Simulasi Preview AI</h3>
+                        <h3 class="font-cyber font-bold text-white text-base flex items-center"><i class="fa-solid fa-cash-register text-cyber-cyan mr-2"></i> AI POS (Point of Sales) Solution Preview</h3>
                         <p class="text-xs text-slate-300 font-mono leading-relaxed">
-                            Pilih modul otomatisasi di bawah untuk melihat penjelasan sistem serta melihat langsung pratinjau hasil olahan AI tanpa menampilkan baris skrip pemrograman.
+                            Simulasi instan pembuatan aplikasi kasir POS terintegrasi AI & Google Sheets. Klik tombol di bawah untuk memuat dashboard lengkap beserta data dummy transaksi.
                         </p>
-                    </div>
-
-                    <!-- Mode Selector -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button @click="selectModule('summarize')" :class="activeModule === 'summarize' ? 'border-cyber-cyan bg-cyber-cyan/10 shadow-neon-cyan' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-cyan/20 text-cyber-cyan flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-file-contract"></i></div>
-                            <div>
-                                <h4 class="font-cyber font-bold text-white text-sm">RANGKUM DOKUMEN OTOMATIS</h4>
-                                <p class="text-xs text-slate-400 font-mono mt-1">Ekstrak intisari laporan panjang dari Google Docs & Sheets.</p>
-                            </div>
-                        </button>
-                        <button @click="selectModule('chat')" :class="activeModule === 'chat' ? 'border-cyber-pink bg-cyber-pink/10 shadow-neon-pink' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
-                            <div class="w-12 h-12 rounded-xl bg-cyber-pink/20 text-cyber-pink flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-comments"></i></div>
-                            <div>
-                                <h4 class="font-cyber font-bold text-white text-sm">ASISTEN ANALISIS DATA SHEET</h4>
-                                <p class="text-xs text-slate-400 font-mono mt-1">Tanya jawab cerdas berbasis data inventaris atau keuangan.</p>
-                            </div>
+                        <button @click="triggerPOSPreview" :disabled="isLoading" class="mt-3 bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-bold px-6 py-2.5 rounded-xl text-xs uppercase tracking-wider transition flex items-center shadow-neon-cyan disabled:opacity-50">
+                            <template x-if="isLoading">
+                                <i class="fa-solid fa-circle-notch animate-spin mr-2"></i>
+                            </template>
+                            <template x-if="!isLoading">
+                                <i class="fa-solid fa-play mr-2"></i>
+                            </template>
+                            Muat Preview Dashboard POS
                         </button>
                     </div>
 
-                    <!-- Interactive Preview Card -->
-                    <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-4">
-                        <div class="flex justify-between items-center border-b border-cyber-border pb-3">
-                            <h3 class="font-cyber text-xs uppercase tracking-widest text-cyber-cyan flex items-center">
-                                <i class="fa-solid fa-eye mr-2"></i> <span x-text="previewTitle"></span>
-                            </h3>
-                            <button @click="triggerPreview" :disabled="isLoading" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition flex items-center shadow-neon-cyan disabled:opacity-50">
-                                <template x-if="isLoading">
-                                    <i class="fa-solid fa-circle-notch animate-spin mr-1"></i>
-                                </template>
-                                <template x-if="!isLoading">
-                                    <i class="fa-solid fa-play mr-1"></i>
-                                </template>
-                                Jalankan Simulasi
-                            </button>
-                        </div>
+                    <!-- POS Dashboard Display (Muncul Setelah Klik) -->
+                    <template x-if="showPOSDashboard">
+                        <div class="space-y-6 animate-fade-in">
+                            <!-- Metrics Cards -->
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-2">
+                                    <p class="text-xs font-cyber text-slate-400">Total Pendapatan Hari Ini</p>
+                                    <h3 class="text-2xl font-cyber font-bold text-cyber-cyan">Rp 3.450.000</h3>
+                                    <span class="text-[10px] text-emerald-400 font-mono">+12.4% dari kemarin</span>
+                                </div>
+                                <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-2">
+                                    <p class="text-xs font-cyber text-slate-400">Transaksi Sukses</p>
+                                    <h3 class="text-2xl font-cyber font-bold text-cyber-pink">48 Item</h3>
+                                    <span class="text-[10px] text-slate-400 font-mono">Tersinkron ke Google Sheets</span>
+                                </div>
+                                <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-2">
+                                    <p class="text-xs font-cyber text-slate-400">Status Sistem AI</p>
+                                    <h3 class="text-2xl font-cyber font-bold text-cyber-purple">Online</h3>
+                                    <span class="text-[10px] text-cyan-400 font-mono">Gemini 1.5 Active</span>
+                                </div>
+                            </div>
 
-                        <!-- Penjelasan Modul -->
-                        <div class="text-xs text-slate-400 font-mono bg-cyber-black p-4 rounded-xl border border-cyber-border" x-text="moduleDescription"></div>
-
-                        <!-- Hasil Preview / Simulasi -->
-                        <div class="space-y-2">
-                            <label class="block font-cyber text-[10px] uppercase tracking-widest text-cyber-pink">> Hasil Preview Output AI:</label>
-                            <div class="p-4 bg-cyber-black border border-cyber-purple/50 rounded-xl text-sm text-slate-200 whitespace-pre-line leading-relaxed font-mono min-h-[120px] shadow-neon-purple flex items-center justify-center" x-text="previewResult"></div>
+                            <!-- Data Dummy Table -->
+                            <div class="bg-cyber-panel rounded-2xl border border-cyber-border shadow-lg overflow-hidden">
+                                <div class="p-6 border-b border-cyber-border flex justify-between items-center">
+                                    <h3 class="font-cyber font-bold text-white text-sm">// REKAP TRANSAKSI TERBARU (DATA DUMMY)</h3>
+                                    <span class="px-3 py-1 rounded-lg bg-cyber-black text-cyber-cyan text-xs font-cyber border border-cyber-border">Live Sync</span>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left border-collapse text-xs font-mono">
+                                        <thead>
+                                            <tr class="bg-cyber-black text-slate-400 uppercase tracking-wider">
+                                                <th class="p-4">ID Transaksi</th>
+                                                <th class="p-4">Produk</th>
+                                                <th class="p-4">Kategori</th>
+                                                <th class="p-4">Kasir</th>
+                                                <th class="p-4 text-right">Total</th>
+                                                <th class="p-4 text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-cyber-border text-slate-300">
+                                            <tr class="hover:bg-cyber-black/50">
+                                                <td class="p-4 text-cyber-cyan">POS-9021</td>
+                                                <td class="p-4 font-bold text-white">Kopi Susu Aren (Large)</td>
+                                                <td class="p-4">Beverage</td>
+                                                <td class="p-4">Rian (Kasir 1)</td>
+                                                <td class="p-4 text-right font-bold text-emerald-400">Rp 28.000</td>
+                                                <td class="p-4 text-center"><span class="px-2.5 py-1 text-[10px] rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">Selesai</span></td>
+                                            </tr>
+                                            <tr class="hover:bg-cyber-black/50">
+                                                <td class="p-4 text-cyber-cyan">POS-9022</td>
+                                                <td class="p-4 font-bold text-white">Roti Bakar Coklat Keju</td>
+                                                <td class="p-4">Snack</td>
+                                                <td class="p-4">Rian (Kasir 1)</td>
+                                                <td class="p-4 text-right font-bold text-emerald-400">Rp 25.000</td>
+                                                <td class="p-4 text-center"><span class="px-2.5 py-1 text-[10px] rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">Selesai</span></td>
+                                            </tr>
+                                            <tr class="hover:bg-cyber-black/50">
+                                                <td class="p-4 text-cyber-cyan">POS-9023</td>
+                                                <td class="p-4 font-bold text-white">Paket Nasi Ayam Geprek</td>
+                                                <td class="p-4">Main Course</td>
+                                                <td class="p-4">Siti (Kasir 2)</td>
+                                                <td class="p-4 text-right font-bold text-emerald-400">Rp 35.000</td>
+                                                <td class="p-4 text-center"><span class="px-2.5 py-1 text-[10px] rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">Selesai</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </template>
                 </div>
 
-                <!-- 3. SETTINGS TAB (API GATEWAY) -->
+                <!-- 3. SETTINGS TAB -->
                 <div x-show="currentTab === 'settings'" class="bg-cyber-panel p-8 rounded-2xl border border-cyber-border shadow-lg space-y-6 max-w-xl">
                     <h3 class="font-cyber font-bold text-white tracking-wider">// API_KEY_CONFIGURATION</h3>
-                    <p class="text-xs text-slate-400 font-mono">Dapatkan token akses gratis dari <a href="https://aistudio.google.com/" target="_blank" class="text-cyber-cyan underline">Google AI Studio</a> dan masukkan ke sistem.</p>
+                    <p class="text-xs text-slate-400 font-mono">Dapatkan token akses gratis dari <a href="https://aistudio.google.com/" target="_blank" class="text-cyber-cyan underline">Google AI Studio</a>.</p>
                     <div class="space-y-2">
                         <label class="block font-cyber text-xs uppercase tracking-widest text-cyber-pink">Gemini API Key</label>
                         <input type="password" x-model="apiKeyInput" placeholder="AIzaSy..." class="w-full px-4 py-3 bg-cyber-black border border-cyber-border rounded-xl focus:outline-none focus:border-cyber-pink text-sm text-white font-mono transition">
@@ -239,48 +246,22 @@
                 currentTab: 'home',
                 isLoading: false,
                 apiKeyInput: '',
-                activeModule: 'summarize',
-                previewResult: 'Klik tombol "Jalankan Simulasi" di atas untuk melihat preview hasil kerja AI secara instan.',
+                showPOSDashboard: false,
 
                 get pageTitle() {
                     if (this.currentTab === 'home') return '// XFEEBOT_PROFILE';
-                    if (this.currentTab === 'workspace') return '// AI_SOLUTION_PREVIEW';
+                    if (this.currentTab === 'workspace') return '// AI_POS_SOLUTION_PREVIEW';
                     return '// SYSTEM_CONFIG';
                 },
 
-                get previewTitle() {
-                    return this.activeModule === 'summarize' ? 'Simulasi Ringkasan Dokumen' : 'Simulasi Asisten Analisis Data';
-                },
-
-                get moduleDescription() {
-                    if (this.activeModule === 'summarize') {
-                        return 'PENJELASAN: Fitur ini secara otomatis memindai teks laporan panjang dari Google Docs atau baris sel Google Sheets, lalu memerintahkan Gemini AI untuk menyusun poin-poin intisari penting secara profesional dan terstruktur.';
-                    } else {
-                        return 'PENJELASAN: Fitur ini menghubungkan database tabel Google Sheets dengan kecerdasan buatan, memungkinkan Anda bertanya langsung mengenai kondisi inventaris, grafik keuangan, atau rekap data tanpa rumus manual yang rumit.';
-                    }
-                },
-
-                initApp() {
-                    // Inisialisasi awal
-                },
-
-                selectModule(mode) {
-                    this.activeModule = mode;
-                    this.previewResult = 'Klik tombol "Jalankan Simulasi" untuk melihat preview hasil dari modul ' + (mode === 'summarize' ? 'Ringkasan Dokumen' : 'Analisis Data') + '.';
-                },
-
-                triggerPreview() {
+                triggerPOSPreview() {
                     this.isLoading = true;
-                    this.previewResult = 'Menghubungkan ke Neural Core & memproses simulasi...';
+                    this.showPOSDashboard = false;
 
                     setTimeout(() => {
                         this.isLoading = false;
-                        if (this.activeModule === 'summarize') {
-                            this.previewResult = "[PREVIEW HASIL // RINGKASAN DOKUMEN]\n\n• Poin 1: Efisiensi operasional sistem meningkat hingga 95%.\n• Poin 2: Seluruh rekap laporan harian otomatis tersinkronisasi ke Google Sheets.\n• Poin 3: Eliminasi tugas manual manusia melalui eksekusi skrip otomatis.";
-                        } else {
-                            this.previewResult = "[PREVIEW HASIL // ASISTEN ANALISIS DATA]\n\nAI Analysis: Berdasarkan data pada sheet, total pemasukan minggu ini stabil dengan pertumbuhan 18%. Pengeluaran tertinggi tercatat pada kategori operasional utilitas.";
-                        }
-                    }, 1000);
+                        this.showPOSDashboard = true;
+                    }, 800);
                 },
 
                 saveKey() {
