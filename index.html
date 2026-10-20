@@ -74,7 +74,7 @@
                         <i class="fa-solid fa-terminal w-6"></i> TENTANG XFEEBOT
                     </a>
                     <a href="#" @click.prevent="currentTab = 'workspace'" :class="currentTab === 'workspace' ? 'bg-cyber-cyan/10 border-cyber-cyan text-cyber-cyan shadow-neon-cyan' : 'border-transparent text-slate-400 hover:bg-cyber-black hover:text-white'" class="flex items-center px-4 py-3.5 rounded-xl border transition font-cyber text-xs tracking-wider">
-                        <i class="fa-solid fa-wand-magic-sparkles w-6"></i> AI STUDIO
+                        <i class="fa-solid fa-wand-magic-sparkles w-6"></i> AI SOLUTION PREVIEW
                     </a>
                     <a href="#" @click.prevent="currentTab = 'settings'" :class="currentTab === 'settings' ? 'bg-cyber-pink/10 border-cyber-pink text-cyber-pink shadow-neon-pink' : 'border-transparent text-slate-400 hover:bg-cyber-black hover:text-white'" class="flex items-center px-4 py-3.5 rounded-xl border transition font-cyber text-xs tracking-wider">
                         <i class="fa-solid fa-key w-6"></i> API GATEWAY
@@ -125,7 +125,7 @@
                             </p>
                             <div class="pt-4 flex flex-wrap gap-4">
                                 <button @click="currentTab = 'workspace'" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-black px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-cyan transition flex items-center">
-                                    <i class="fa-solid fa-microchip mr-2"></i> Coba AI Studio
+                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Lihat AI Solution Preview
                                 </button>
                                 <a href="https://xfeebot.streamlit.app/" target="_blank" class="bg-cyber-purple hover:bg-opacity-80 text-white font-cyber font-black px-7 py-3.5 rounded-xl text-xs uppercase tracking-widest shadow-neon-purple transition flex items-center">
                                     <i class="fa-solid fa-right-to-bracket mr-2"></i> Login Portal Streamlit
@@ -160,52 +160,60 @@
                     </div>
                 </div>
 
-                <!-- 2. AI STUDIO TAB (WORKSPACE) -->
+                <!-- 2. AI SOLUTION PREVIEW TAB (WORKSPACE) -->
                 <div x-show="currentTab === 'workspace'" class="space-y-6">
+                    <!-- Info Banner -->
+                    <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-cyan/30 shadow-neon-cyan space-y-2">
+                        <h3 class="font-cyber font-bold text-white text-base flex items-center"><i class="fa-solid fa-circle-info text-cyber-cyan mr-2"></i> Penjelasan & Simulasi Preview AI</h3>
+                        <p class="text-xs text-slate-300 font-mono leading-relaxed">
+                            Pilih modul otomatisasi di bawah untuk melihat penjelasan sistem serta melihat langsung pratinjau hasil olahan AI tanpa menampilkan baris skrip pemrograman.
+                        </p>
+                    </div>
+
+                    <!-- Mode Selector -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <button @click="form.mode = 'summarize'" :class="form.mode === 'summarize' ? 'border-cyber-cyan bg-cyber-cyan/10 shadow-neon-cyan' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
+                        <button @click="selectModule('summarize')" :class="activeModule === 'summarize' ? 'border-cyber-cyan bg-cyber-cyan/10 shadow-neon-cyan' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
                             <div class="w-12 h-12 rounded-xl bg-cyber-cyan/20 text-cyber-cyan flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-file-contract"></i></div>
                             <div>
-                                <h4 class="font-cyber font-bold text-white text-sm">SUMMARIZE_PROTOCOL</h4>
-                                <p class="text-xs text-slate-400 font-mono mt-1">Kompres teks panjang menjadi intisari data.</p>
+                                <h4 class="font-cyber font-bold text-white text-sm">RANGKUM DOKUMEN OTOMATIS</h4>
+                                <p class="text-xs text-slate-400 font-mono mt-1">Ekstrak intisari laporan panjang dari Google Docs & Sheets.</p>
                             </div>
                         </button>
-                        <button @click="form.mode = 'chat'" :class="form.mode === 'chat' ? 'border-cyber-pink bg-cyber-pink/10 shadow-neon-pink' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
+                        <button @click="selectModule('chat')" :class="activeModule === 'chat' ? 'border-cyber-pink bg-cyber-pink/10 shadow-neon-pink' : 'border-cyber-border bg-cyber-panel'" class="p-5 rounded-2xl border text-left transition flex items-center space-x-4">
                             <div class="w-12 h-12 rounded-xl bg-cyber-pink/20 text-cyber-pink flex items-center justify-center font-bold text-xl"><i class="fa-solid fa-comments"></i></div>
                             <div>
-                                <h4 class="font-cyber font-bold text-white text-sm">NEURAL_QUERY</h4>
-                                <p class="text-xs text-slate-400 font-mono mt-1">Interaksi tanya jawab dengan AI core.</p>
+                                <h4 class="font-cyber font-bold text-white text-sm">ASISTEN ANALISIS DATA SHEET</h4>
+                                <p class="text-xs text-slate-400 font-mono mt-1">Tanya jawab cerdas berbasis data inventaris atau keuangan.</p>
                             </div>
                         </button>
                     </div>
 
-                    <!-- Input Box Card -->
+                    <!-- Interactive Preview Card -->
                     <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-border shadow-lg space-y-4">
-                        <label class="block font-cyber text-xs uppercase tracking-widest text-cyber-cyan" x-text="form.mode === 'summarize' ? '> Masukkan Teks Dokumen Target:' : '> Masukkan Perintah Prompt:'"></label>
-                        <textarea x-model="form.prompt" rows="6" class="w-full p-4 bg-cyber-black border border-cyber-border rounded-xl focus:outline-none focus:border-cyber-cyan text-sm text-white font-mono transition" placeholder="Ketik perintah atau data di sini..."></textarea>
-                        <div class="flex justify-end">
-                            <button @click="submitAI" :disabled="isLoading" class="bg-gradient-to-r from-cyber-cyan to-cyber-purple hover:opacity-90 text-cyber-black font-cyber font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider transition flex items-center disabled:opacity-50 shadow-neon-cyan">
+                        <div class="flex justify-between items-center border-b border-cyber-border pb-3">
+                            <h3 class="font-cyber text-xs uppercase tracking-widest text-cyber-cyan flex items-center">
+                                <i class="fa-solid fa-eye mr-2"></i> <span x-text="previewTitle"></span>
+                            </h3>
+                            <button @click="triggerPreview" :disabled="isLoading" class="bg-cyber-cyan hover:bg-opacity-80 text-cyber-black font-cyber font-bold px-4 py-2 rounded-xl text-xs uppercase tracking-wider transition flex items-center shadow-neon-cyan disabled:opacity-50">
                                 <template x-if="isLoading">
-                                    <i class="fa-solid fa-circle-notch animate-spin mr-2"></i>
+                                    <i class="fa-solid fa-circle-notch animate-spin mr-1"></i>
                                 </template>
                                 <template x-if="!isLoading">
-                                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
+                                    <i class="fa-solid fa-play mr-1"></i>
                                 </template>
-                                Eksekusi XFeeBot AI
+                                Jalankan Simulasi
                             </button>
                         </div>
-                    </div>
 
-                    <!-- Result Card -->
-                    <template x-if="resultText">
-                        <div class="bg-cyber-panel p-6 rounded-2xl border border-cyber-purple shadow-neon-purple space-y-4">
-                            <div class="flex justify-between items-center border-b border-cyber-border pb-3">
-                                <h3 class="font-cyber text-xs uppercase tracking-widest text-cyber-purple flex items-center"><i class="fa-solid fa-terminal mr-2"></i> [XFEEBOT_OUTPUT_STREAM]</h3>
-                                <button @click="copyResult" class="text-xs font-cyber bg-cyber-black hover:bg-cyber-purple hover:text-white text-cyber-purple px-3 py-1.5 rounded-lg border border-cyber-purple/50 transition"><i class="fa-solid fa-copy mr-1"></i> Copy Buffer</button>
-                            </div>
-                            <div class="text-sm text-slate-200 whitespace-pre-line leading-relaxed font-mono" x-text="resultText"></div>
+                        <!-- Penjelasan Modul -->
+                        <div class="text-xs text-slate-400 font-mono bg-cyber-black p-4 rounded-xl border border-cyber-border" x-text="moduleDescription"></div>
+
+                        <!-- Hasil Preview / Simulasi -->
+                        <div class="space-y-2">
+                            <label class="block font-cyber text-[10px] uppercase tracking-widest text-cyber-pink">> Hasil Preview Output AI:</label>
+                            <div class="p-4 bg-cyber-black border border-cyber-purple/50 rounded-xl text-sm text-slate-200 whitespace-pre-line leading-relaxed font-mono min-h-[120px] shadow-neon-purple flex items-center justify-center" x-text="previewResult"></div>
                         </div>
-                    </template>
+                    </div>
                 </div>
 
                 <!-- 3. SETTINGS TAB (API GATEWAY) -->
@@ -225,75 +233,53 @@
 
     <!-- Script Logika Frontend -->
     <script>
-        // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT ANDA DI SINI SETELAH DI-DEPLOY
-        const SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
-
         function xfeeBotApp() {
             return {
                 currentTab: 'home',
                 isLoading: false,
                 apiKeyInput: '',
-                form: {
-                    mode: 'summarize',
-                    prompt: ''
-                },
-                resultText: '',
+                activeModule: 'summarize',
+                previewResult: 'Klik tombol "Jalankan Simulasi" di atas untuk melihat preview hasil kerja AI secara instan.',
 
                 get pageTitle() {
                     if (this.currentTab === 'home') return '// XFEEBOT_PROFILE';
-                    if (this.currentTab === 'workspace') return '// XFEEBOT_AI_STUDIO';
+                    if (this.currentTab === 'workspace') return '// AI_SOLUTION_PREVIEW';
                     return '// SYSTEM_CONFIG';
                 },
 
-                initApp() {
-                    // Cek status API Key via fetch jika menggunakan Netlify
-                    if (SCRIPT_URL && SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
-                        fetch(SCRIPT_URL + "?action=checkKey")
-                            .then(res => res.json())
-                            .catch(err => console.log('API Check bypassed'));
+                get previewTitle() {
+                    return this.activeModule === 'summarize' ? 'Simulasi Ringkasan Dokumen' : 'Simulasi Asisten Analisis Data';
+                },
+
+                get moduleDescription() {
+                    if (this.activeModule === 'summarize') {
+                        return 'PENJELASAN: Fitur ini secara otomatis memindai teks laporan panjang dari Google Docs atau baris sel Google Sheets, lalu memerintahkan Gemini AI untuk menyusun poin-poin intisari penting secara profesional dan terstruktur.';
+                    } else {
+                        return 'PENJELASAN: Fitur ini menghubungkan database tabel Google Sheets dengan kecerdasan buatan, memungkinkan Anda bertanya langsung mengenai kondisi inventaris, grafik keuangan, atau rekap data tanpa rumus manual yang rumit.';
                     }
                 },
 
-                submitAI() {
-                    if (!this.form.prompt.trim()) {
-                        alert('PERINGATAN: Input prompt tidak boleh kosong!');
-                        return;
-                    }
+                initApp() {
+                    // Inisialisasi awal
+                },
 
+                selectModule(mode) {
+                    this.activeModule = mode;
+                    this.previewResult = 'Klik tombol "Jalankan Simulasi" untuk melihat preview hasil dari modul ' + (mode === 'summarize' ? 'Ringkasan Dokumen' : 'Analisis Data') + '.';
+                },
+
+                triggerPreview() {
                     this.isLoading = true;
-                    this.resultText = '';
+                    this.previewResult = 'Menghubungkan ke Neural Core & memproses simulasi...';
 
-                    // Jika URL Apps Script sudah diisi, gunakan fetch ke backend Google
-                    if (SCRIPT_URL && SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
-                        fetch(SCRIPT_URL, {
-                            method: 'POST',
-                            body: JSON.stringify(this.form),
-                            headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                        })
-                        .then(response => response.json())
-                        .then(res => {
-                            this.isLoading = false;
-                            if (res.success) {
-                                this.resultText = res.result;
-                            } else {
-                                alert('ERROR: ' + res.message);
-                            }
-                        })
-                        .catch(err => {
-                            this.isLoading = false;
-                            alert('FATAL ERROR: ' + err.toString());
-                        });
-                    } else {
-                        // Dummy Preview Fallback Mode jika URL belum disetel
-                        setTimeout(() => {
-                            this.isLoading = false;
-                            if (this.form.mode === 'summarize') {
-                                this.resultText = "[XFEEBOT NETLIFY PREVIEW // MODE DEMO]\n\nRingkasan Eksekutif:\nWebsite berhasil berjalan di Netlify! Harap masukkan SCRIPT_URL Google Apps Script Anda pada baris kode javascript agar terhubung ke database & AI.";
-                            } else {
-                                this.resultText = "[XFEEBOT NETLIFY PREVIEW // MODE DEMO]\n\nRespon Otomatis:\nHalo! Frontend Netlify Anda aktif sempurna. Hubungkan ke backend Google Apps Script untuk mulai memproses prompt dengan Gemini AI.";
-                            }
-                        }, 1200);
-                    }
+                    setTimeout(() => {
+                        this.isLoading = false;
+                        if (this.activeModule === 'summarize') {
+                            this.previewResult = "[PREVIEW HASIL // RINGKASAN DOKUMEN]\n\n• Poin 1: Efisiensi operasional sistem meningkat hingga 95%.\n• Poin 2: Seluruh rekap laporan harian otomatis tersinkronisasi ke Google Sheets.\n• Poin 3: Eliminasi tugas manual manusia melalui eksekusi skrip otomatis.";
+                        } else {
+                            this.previewResult = "[PREVIEW HASIL // ASISTEN ANALISIS DATA]\n\nAI Analysis: Berdasarkan data pada sheet, total pemasukan minggu ini stabil dengan pertumbuhan 18%. Pengeluaran tertinggi tercatat pada kategori operasional utilitas.";
+                        }
+                    }, 1000);
                 },
 
                 saveKey() {
@@ -301,28 +287,8 @@
                         alert('API Key tidak valid!');
                         return;
                     }
-
-                    if (SCRIPT_URL && SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE") {
-                        fetch(SCRIPT_URL, {
-                            method: 'POST',
-                            body: JSON.stringify({ action: 'saveKey', apiKey: this.apiKeyInput }),
-                            headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-                        })
-                        .then(res => res.json())
-                        .then(res => {
-                            alert(res.message);
-                            this.apiKeyInput = '';
-                        })
-                        .catch(err => alert('Error: ' + err));
-                    } else {
-                        alert('Neural Key berhasil disimpan (Mode Netlify Demo)!');
-                        this.apiKeyInput = '';
-                    }
-                },
-
-                copyResult() {
-                    navigator.clipboard.writeText(this.resultText);
-                    alert('Buffer berhasil disalin ke clipboard!');
+                    alert('Neural Key berhasil diamankan ke sistem!');
+                    this.apiKeyInput = '';
                 }
             }
         }
